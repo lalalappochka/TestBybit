@@ -19,6 +19,7 @@ namespace WebDriverBybit.Model
         private By _assetsLocator = By.XPath("//span[text()='Assets']");
         private By _assetsActiveLocator = By.XPath("//*[text()='Spot Account']");
         //private By _iconLocator = By.ClassName("icon-profile");
+        private By _marketsLocator = By.XPath("//*[@id='HEADER - NAV']/a[2] ");
 
         public FirstPage(WebDriver driver)
         {
@@ -39,6 +40,12 @@ namespace WebDriverBybit.Model
         //    _driver.FindElement(_iconLocator);
 
         //}
+
+        public MarketPage MoveToMarketPage()
+        {
+            _wait.Until(ExpectedConditions.ElementToBeClickable(_marketsLocator)).Click();
+            return new MarketPage(_driver);
+        }
 
         public AssetsPage MoveToAssets()
         {
