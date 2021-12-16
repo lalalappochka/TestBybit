@@ -9,7 +9,7 @@ using WebDriverBybit.Model;
 
 namespace WebdriverBybit
 {
-    class Program
+    class Bybit
     {
         public class Tests
         {
@@ -20,10 +20,9 @@ namespace WebdriverBybit
             private string userPassword = "P@ssw0rd";
             private double beforetrans;
             private double aftertrans;
-            private double amount = 0.2;
+            private double amount = 0.02;
 
-            private IWebDriver driver;
-            WebDriverWait wait;
+     
 
             [OneTimeSetUp]
             public void Setup()
@@ -38,11 +37,11 @@ namespace WebdriverBybit
             }
 
             [Test]
-            public void BybitTest()
+            public void BybitTestTransfer()
             {
                 firstPage.MoveToLoginPage().LoginAs(userEmail, userPassword)
                     .MoveToAssets().TransferOperation(out beforetrans, out aftertrans, amount);
-                Assert.AreEqual(beforetrans + amount, aftertrans);
+                Assert.AreEqual(aftertrans + amount, beforetrans);
                 chrome.Quit();
             }
 
