@@ -15,6 +15,7 @@ namespace WebdriverBybit
         {
             private ChromeDriver chrome;
             private FirstPage firstPage;
+            private AssetsPage assetsPage;
             private string pageURL = "https://testnet.bybit.com/";
             private string userEmail = "lalalappochka@gmail.com";
             private string userPassword = "P@ssw0rd";
@@ -33,6 +34,7 @@ namespace WebdriverBybit
                 chrome.Manage().Window.Maximize();
                 chrome.Navigate().GoToUrl(pageURL);
                 firstPage = new FirstPage(chrome);
+                assetsPage = new AssetsPage(chrome);
 
             }
 
@@ -41,19 +43,25 @@ namespace WebdriverBybit
             {
                 firstPage.MoveToLoginPage().LoginAs(userEmail, userPassword)
                     .MoveToAssets().TransferOperation(out beforetrans, out aftertrans, amount);
-                Assert.AreEqual(aftertrans , beforetrans + amount);
-                chrome.Quit();
+                Assert.AreEqual(aftertrans, beforetrans + amount);
+                
             }
 
 
 
-            //[Test]
-            //public void ByBitTestFavourites()
-            //{
-            //    firstPage.MoveToLoginPage().LoginAs(userEmail, userPassword)
-            //        .MoveToMarketPage().ChooseFavouriteOperation();
+            [Test]
+            public void ByBitTestFavourites()
+            {
+                assetsPage.MoveToMarketPage().ChooseSpot();
+                 
 
-            //}
+            }
+
+            [OneTimeTearDown]
+            public void Teardown()
+            {
+                chrome.Quit();
+            }
 
         }
     }

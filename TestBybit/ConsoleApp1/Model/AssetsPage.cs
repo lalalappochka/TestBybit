@@ -26,6 +26,7 @@ namespace WebDriverBybit.Model
             private By _transferableAmountLocator = By.CssSelector(".by-input__inner");
             private By _confirmButtonLocator = By.ClassName("by-button--contained");
             private By _cashAfterTransfLocator = By.CssSelector(".asset-transfer__account-wraper > .asset-transfer__account-value");
+            private By _marketsLocator = By.CssSelector("#HEADER-NAV > a.header__nav-item.header__nav-item-markets");
             private WebDriver _driver;
             private WebDriverWait _wait;
 
@@ -55,7 +56,9 @@ namespace WebDriverBybit.Model
 
             public double CashBeforeTransfer()
             {
+                
                 return Convert.ToDouble(_driver.FindElements(_cashBeforeTransfDerLocator)[1].Text.Split(' ')[0]);
+               
 
             }
             public void ReceiveAccount()
@@ -79,7 +82,7 @@ namespace WebDriverBybit.Model
             public void ChooseCoinType()
             {
                 _wait.Until(ExpectedConditions.ElementToBeClickable(_choiceBTCLocator));
-                _driver.FindElement(_choiceBTCLocator).Click();
+                _driver.FindElements(_choiceBTCLocator)[3].Click();
             }
 
             public void ChooseTransferableAmount(double amount)
@@ -100,6 +103,13 @@ namespace WebDriverBybit.Model
                 _wait.Until(ExpectedConditions.ElementIsVisible(_cashAfterTransfLocator));
                 return Convert.ToDouble(_driver.FindElements(_cashAfterTransfLocator)[1].Text.Split(' ')[0]);
             }
+
+            public MarketPage MoveToMarketPage()
+            {
+
+            _driver.Navigate().GoToUrl("https://testnet.bybit.com/data/markets/spot");
+            return new MarketPage(_driver);
+        }
 
             public void TransferOperation(out double before, out double after, double amount)
             {

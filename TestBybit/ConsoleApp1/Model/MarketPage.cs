@@ -13,12 +13,12 @@ namespace WebDriverBybit.Model
     {
         private WebDriverWait _wait;
         private WebDriver _driver;
-        private By _spotLocator = By.ClassName("markets-nav__item f-14 nowrap");
-        private By _marketTypeLocator = By.ClassName("markets-tbody__item f-14 nowrap markets-tbody__item-symbol");
+        private By _spotLocator = By.XPath("//*[text()='Spot']"); 
+        private By _marketTypeLocator = By.CssSelector("//span[text()='BIT''/''USDT']");
         private By _starButtonLocator = By.ClassName("markets-tbody__row-collect");
-        private By _FavoutiteLocator = By.ClassName("markets-nav__item f-14 nowrap");
-        private By _spotfavLocator = By.ClassName("markets-tab__item f-12 nowrap");
-        private By _FavAddLocator = By.ClassName("markets-tbody__item f-14 nowrap markets-tbody__item-symbol");
+        private By _FavoutiteLocator = By.CssSelector(".markets-nav__item > .f-14 >.nowrap");
+        private By _spotfavLocator = By.CssSelector(".markets-tab__item > .f-12 > .nowrap");
+        private By _FavAddLocator = By.CssSelector(".markets-tbody__item > .f-14 > .nowrap > .markets-tbody__item-symbol");
 
 
         public MarketPage(WebDriver driver)
@@ -30,7 +30,9 @@ namespace WebDriverBybit.Model
 
         public void ChooseSpot()
         {
-            _driver.FindElements(_spotLocator)[2].Click();
+            _wait.Until(ExpectedConditions.ElementToBeClickable(_spotLocator));
+            _driver.FindElement(_spotLocator).Click();
+
         }
 
         public void ChooseMarket()
