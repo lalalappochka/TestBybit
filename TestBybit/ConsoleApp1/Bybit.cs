@@ -22,6 +22,8 @@ namespace WebdriverBybit
             private double beforetrans;
             private double aftertrans;
             private double amount = 0.2;
+            private string chooseMarket;
+            private string favMarket;
 
      
 
@@ -38,7 +40,7 @@ namespace WebdriverBybit
 
             }
 
-            [Test]
+            [Test, Order(1)]
             public void BybitTestTransfer()
             {
                 firstPage.MoveToLoginPage().LoginAs(userEmail, userPassword)
@@ -49,10 +51,11 @@ namespace WebdriverBybit
 
 
 
-            [Test]
+            [Test, Order(2)]
             public void ByBitTestFavourites()
             {
-                assetsPage.MoveToMarketPage().ChooseSpot();
+                assetsPage.MoveToMarketPage().ChooseFavouriteOperation(out chooseMarket, out favMarket);
+                Assert.AreEqual(favMarket, chooseMarket);
                  
 
             }

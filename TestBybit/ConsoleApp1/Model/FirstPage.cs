@@ -24,7 +24,7 @@ namespace WebDriverBybit.Model
         public FirstPage(WebDriver driver)
         {
             _driver = driver;
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
         }
 
 

@@ -31,20 +31,21 @@ namespace WebDriverBybit.Model
         public void ChooseSpot()
         {
             _wait.Until(ExpectedConditions.ElementToBeClickable(_spotLocator));
-            _driver.FindElement(_spotLocator).Click();
+            _driver.FindElements(_spotLocator)[1].Click();
 
         }
 
-        public void ChooseMarket()
+        public string ChooseMarket()
         {
-            _wait.Until(ExpectedConditions.ElementToBeClickable(_marketTypeLocator));
-            _driver.FindElements(_marketTypeLocator)[0].Click();
+          return  _wait.Until(ExpectedConditions.ElementToBeClickable(_marketTypeLocator)).Text;
+           
         }
 
         public void AddToFavourites()
         {
             _wait.Until(ExpectedConditions.ElementToBeClickable(_starButtonLocator));
             _driver.FindElements(_starButtonLocator)[0].Click();
+
         }
 
         public void Favourite()
@@ -57,20 +58,20 @@ namespace WebDriverBybit.Model
             _driver.FindElements(_spotfavLocator)[1].Click();
         }
 
-        public void CheckFavourites()
+        public string CheckFavourites()
         {
-            _wait.Until(ExpectedConditions.ElementToBeClickable(_FavAddLocator));
+           return ( _wait.Until(ExpectedConditions.ElementToBeClickable(_FavAddLocator))).Text;
           
         }
 
-        public void ChooseFavouriteOperation()
+        public void ChooseFavouriteOperation(out string choosemarket, out string favmarket)
         {
             ChooseSpot();
-            ChooseMarket();
+          choosemarket = ChooseMarket();
             AddToFavourites();
             Favourite();
             ChooseSpotFav();
-            CheckFavourites();
+          favmarket = CheckFavourites();
         }
 
     }

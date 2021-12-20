@@ -12,8 +12,7 @@ using SeleniumExtras.WaitHelpers;
 namespace WebDriverBybit.Model
 {
     class AssetsPage
-    {
-      
+    { 
         
             private By _transferLocator = By.ClassName("operation-default-btn");
             private By _senderAccountLocator = By.CssSelector(".asset-transfer__account > .asset-transfer__account-wraper");
