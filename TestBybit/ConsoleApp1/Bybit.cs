@@ -20,7 +20,7 @@ namespace WebdriverBybit
             private string userPassword = "P@ssw0rd";
             private double beforetrans;
             private double aftertrans;
-            private double amount = 0.02;
+            private double amount = 0.2;
 
      
 
@@ -41,34 +41,17 @@ namespace WebdriverBybit
             {
                 firstPage.MoveToLoginPage().LoginAs(userEmail, userPassword)
                     .MoveToAssets().TransferOperation(out beforetrans, out aftertrans, amount);
-                Assert.AreEqual(aftertrans + amount, beforetrans);
+                Assert.AreEqual(aftertrans , beforetrans + amount);
                 chrome.Quit();
             }
 
-           
+
 
             //[Test]
-            //public void ByBitFavourites()
+            //public void ByBitTestFavourites()
             //{
-
-            //    driver = new ChromeDriver();
-            //    wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
-            //    driver.Manage().Window.Maximize();
-            //    pageURL = "https://testnet.bybit.com/data/markets/spot";
-            //    driver.Navigate().GoToUrl(pageURL);
-            //    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(120);
-            //    IWebElement Spot = driver.FindElements(By.ClassName("markets-nav__item f-14 nowrap"))[2];
-            //    Spot.Click();
-            //    IWebElement Market = driver.FindElements(By.ClassName("markets-tbody__item f-14 nowrap markets-tbody__item-symbol"))[0];
-            //    IWebElement StarButton = driver.FindElements(By.ClassName("markets-tbody__row-collect"))[0];
-            //    StarButton.Click();
-            //    IWebElement Favourite = driver.FindElements(By.ClassName("markets-nav__item f-14 nowrap"))[0];
-            //    Favourite.Click();
-            //    IWebElement SpotType = driver.FindElements(By.ClassName("markets-tab__item f-12 nowrap"))[1];
-            //    SpotType.Click();
-            //    IWebElement FavMarket = driver.FindElement(By.ClassName(""));
-            //    Assert.AreEqual(Market, FavMarket);
-
+            //    firstPage.MoveToLoginPage().LoginAs(userEmail, userPassword)
+            //        .MoveToMarketPage().ChooseFavouriteOperation();
 
             //}
 

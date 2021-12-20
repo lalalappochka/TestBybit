@@ -18,7 +18,7 @@ namespace WebDriverBybit.Model
         private By _starButtonLocator = By.ClassName("markets-tbody__row-collect");
         private By _FavoutiteLocator = By.ClassName("markets-nav__item f-14 nowrap");
         private By _spotfavLocator = By.ClassName("markets-tab__item f-12 nowrap");
-        private By _spotFavLocator = By.ClassName("");
+        private By _FavAddLocator = By.ClassName("markets-tbody__item f-14 nowrap markets-tbody__item-symbol");
 
 
         public MarketPage(WebDriver driver)
@@ -55,8 +55,21 @@ namespace WebDriverBybit.Model
             _driver.FindElements(_spotfavLocator)[1].Click();
         }
 
+        public void CheckFavourites()
+        {
+            _wait.Until(ExpectedConditions.ElementToBeClickable(_FavAddLocator));
+          
+        }
 
-
+        public void ChooseFavouriteOperation()
+        {
+            ChooseSpot();
+            ChooseMarket();
+            AddToFavourites();
+            Favourite();
+            ChooseSpotFav();
+            CheckFavourites();
+        }
 
     }
 }

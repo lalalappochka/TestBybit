@@ -19,7 +19,7 @@ namespace WebDriverBybit.Model
         private By _assetsLocator = By.XPath("//span[text()='Assets']");
         private By _assetsActiveLocator = By.XPath("//*[text()='Spot Account']");
         //private By _iconLocator = By.ClassName("icon-profile");
-        private By _marketsLocator = By.XPath("//*[@id='HEADER - NAV']/a[2] ");
+        private By _marketsLocator = By.XPath("//*[@id='HEADER - NAV']/a[2]");
 
         public FirstPage(WebDriver driver)
         {
