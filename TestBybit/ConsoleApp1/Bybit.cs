@@ -25,9 +25,9 @@ namespace WebdriverBybit
             private string chooseMarket;
             private string favMarket;
 
-     
 
-            [OneTimeSetUp]
+
+            [SetUp]
             public void Setup()
             {
                 ChromeOptions options = new ChromeOptions();
@@ -37,30 +37,24 @@ namespace WebdriverBybit
                 chrome.Navigate().GoToUrl(pageURL);
                 firstPage = new FirstPage(chrome);
                 assetsPage = new AssetsPage(chrome);
-
+                firstPage.MoveToLoginPage().LoginAs(userEmail, userPassword);
             }
 
-            [Test, Order(1)]
             public void BybitTestTransfer()
             {
-                firstPage.MoveToLoginPage().LoginAs(userEmail, userPassword)
-                    .MoveToAssets().TransferOperation(out beforetrans, out aftertrans, amount);
+                firstPage.MoveToAssets().TransferOperation(out beforetrans, out aftertrans, amount);
                 Assert.AreEqual(aftertrans, beforetrans + amount);
-                
+
             }
-
-
 
             [Test, Order(2)]
             public void ByBitTestFavourites()
             {
-                assetsPage.MoveToMarketPage().ChooseFavouriteOperation(out chooseMarket, out favMarket);
+                firstPage.MoveToMarketPage().ChooseFavouriteOperation(out chooseMarket, out favMarket);
                 Assert.AreEqual(favMarket, chooseMarket);
-                 
-
             }
 
-            [OneTimeTearDown]
+            [TearDown]
             public void Teardown()
             {
                 chrome.Quit();

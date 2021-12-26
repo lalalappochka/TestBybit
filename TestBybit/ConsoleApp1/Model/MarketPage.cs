@@ -13,12 +13,15 @@ namespace WebDriverBybit.Model
     {
         private WebDriverWait _wait;
         private WebDriver _driver;
+
+        private static string marketTypeXpath = "//span[contains(text()[1],'BTC') and contains(text()[3],'USDT')]";
+        private static string favouritesXpath = "//span[contains(text(),'Избранное') or contains(text(),'Favorite')]";
+
         private By _spotLocator = By.XPath("//*[text()='Spot']"); 
-        private By _marketTypeLocator = By.CssSelector("//span[text()='BIT''/''USDT']");
-        private By _starButtonLocator = By.ClassName("markets-tbody__row-collect");
-        private By _FavoutiteLocator = By.CssSelector(".markets-nav__item > .f-14 >.nowrap");
-        private By _spotfavLocator = By.CssSelector(".markets-tab__item > .f-12 > .nowrap");
-        private By _FavAddLocator = By.CssSelector(".markets-tbody__item > .f-14 > .nowrap > .markets-tbody__item-symbol");
+        private By _marketTypeLocator = By.XPath(marketTypeXpath);
+        private By _starButtonLocator = By.XPath(marketTypeXpath + "/../preceding-sibling::div");
+        private By _FavoutiteLocator = By.XPath(favouritesXpath);
+        private By _spotfavLocator = By.XPath(favouritesXpath + "/../../../following-sibling::div//span[contains(text(),'Спот')]");
 
 
         public MarketPage(WebDriver driver)
@@ -55,13 +58,12 @@ namespace WebDriverBybit.Model
 
         public void ChooseSpotFav()
         {
-            _driver.FindElements(_spotfavLocator)[1].Click();
+            _driver.FindElement(_spotfavLocator).Click();
         }
 
         public string CheckFavourites()
         {
-           return ( _wait.Until(ExpectedConditions.ElementToBeClickable(_FavAddLocator))).Text;
-          
+           return ( _wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(marketTypeXpath)))).Text;
         }
 
         public void ChooseFavouriteOperation(out string choosemarket, out string favmarket)

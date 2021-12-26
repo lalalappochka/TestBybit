@@ -18,6 +18,7 @@ namespace WebDriverBybit.Model
         private WebDriverWait _wait;
         private By _assetsLocator = By.XPath("//span[text()='Assets']");
         private By _assetsActiveLocator = By.XPath("//*[text()='Spot Account']");
+        private By _marketLocator = By.XPath("//div[@id='HEADER-NAV']//a[contains(text(),'Markets')]");
         //private By _iconLocator = By.ClassName("icon-profile");
         
 
@@ -41,8 +42,6 @@ namespace WebDriverBybit.Model
 
         //}
 
-      
-
         public AssetsPage MoveToAssets()
         {
             //IconCheck();
@@ -51,6 +50,15 @@ namespace WebDriverBybit.Model
             _wait.Until(ExpectedConditions.ElementToBeClickable(_assetsActiveLocator)).Click();
             _driver.SwitchTo().Window(_driver.WindowHandles[1]);
             return new AssetsPage(_driver);
+        }
+
+        public MarketPage MoveToMarketPage()
+        {
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+            _wait.Until(ExpectedConditions.ElementToBeClickable(_marketLocator));
+            _driver.FindElement(_marketLocator).Click();
+            _driver.SwitchTo().Window(_driver.WindowHandles[1]);
+            return new MarketPage(_driver);
         }
 
 
